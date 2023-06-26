@@ -1,11 +1,7 @@
-:root {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.list__item {
-    list-style-type: none;
-    padding-bottom: 10px;;
-    &--character {
-        color: brown;
-    }
-}
+@import './core/reset';
+@import './core/var';
+@import './layout/header';
+@import './layout/main-list';
+@import './layout/main-filters';
+@import './layout/main-add-new';
+@import './layout/footer';

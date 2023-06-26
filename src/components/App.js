@@ -60,10 +60,10 @@ function App() {
         // render quotes
         .map((eachQuote, i) => {
           return (
-            <li className='list__item' key={i}>
+            <li className='quote__list--item' key={i}>
               <span>{eachQuote.quote}</span>
               <span> - </span>
-              <span className='list__item--character'>{eachQuote.character}</span>
+              <span className='list__item character'>{eachQuote.character}</span>
             </li>
           );
         })
@@ -72,43 +72,79 @@ function App() {
 
   return (
     <div>
-      <header>
-        <h1>Frases de Friends</h1>
-        <hr />
+      <header className='header'>
+        <h1 className='header__title'>· Frases de Friends ·</h1>
       </header>
-      <main>
-        <form>
-          <label htmlFor='quote__filter'>Filtrar por frase</label>
-          <input
-            type='text'
-            id='quote__filter'
-            name='quote__filter'
-            value={quoteSearch}
-            onInput={handleQuoteSearch}
-          />
-          <label htmlFor='characters'>Filtrar por personaje</label>
-          <select name='characters' id='characters' onChange={handleCharacterSearch} value={characterSearch}>
-            <option value=''>Todos</option>
-            <option value='ross'>Ross</option>
-            <option value='monica'>Monica</option>
-            <option value='joey'>Joey</option>
-            <option value='phoebe'>Phoebe</option>
-            <option value='chandler'>Chandler</option>
-            <option value='rachel'>Rachel</option>
-          </select>
+      <main className='main'>
+        <form className='form__filters'>
+          <fieldset className='form__fieldset'>
+            <label className='form__label' htmlFor='quote__filter'>
+              Filtrar por frase
+            </label>
+            <input
+              type='text'
+              className='form__filters--input'
+              id='quote__filter'
+              name='quote__filter'
+              value={quoteSearch}
+              onInput={handleQuoteSearch}
+            />
+            <label className='form__label' htmlFor='characters'>
+              Filtrar por personaje
+            </label>
+            <select
+              name='characters'
+              className='form__filters--select'
+              id='characters'
+              onChange={handleCharacterSearch}
+              value={characterSearch}
+            >
+              <option value=''>Todos</option>
+              <option value='ross'>Ross</option>
+              <option value='monica'>Monica</option>
+              <option value='joey'>Joey</option>
+              <option value='phoebe'>Phoebe</option>
+              <option value='chandler'>Chandler</option>
+              <option value='rachel'>Rachel</option>
+            </select>
+          </fieldset>
         </form>
-        <ul>{renderQuotesList()}</ul>
+        <ul className='quote__list'>{renderQuotesList()}</ul>
         <section>
-          <h2>Añadir nueva frase</h2>
-          <form>
-            <label htmlFor='quote'>Frase</label>
-            <input type='text' id='quote' value={newQuote.quote} onInput={handleNewQuote} />
-            <label htmlFor='character'>Personaje</label>
-            <input type='text' id='character' value={newQuote.character} onInput={handleNewQuote} />
-            <input type='submit' value='Añadir una nueva frase' onClick={handleAddNewQuote} />
+          <h2 className='new-quote__title'>Nueva frase</h2>
+          <form className='form__add'>
+            <fieldset className='form__fieldset add-new'>
+              <label htmlFor='quote' className='form__label'>
+                Frase
+              </label>
+              <input
+                type='text'
+                className='form__add--input'
+                id='quote'
+                value={newQuote.quote}
+                onInput={handleNewQuote}
+              />
+              <label htmlFor='character' className='form__label'>
+                Personaje
+              </label>
+              <input
+                type='text'
+                className='form__add--input'
+                id='character'
+                value={newQuote.character}
+                onInput={handleNewQuote}
+              />
+              <input
+                type='submit'
+                className='form__add--btn'
+                value='Añadir una nueva frase'
+                onClick={handleAddNewQuote}
+              />
+            </fieldset>
           </form>
         </section>
       </main>
+      <footer className='footer'>Adalab &copy;2023</footer>
     </div>
   );
 }

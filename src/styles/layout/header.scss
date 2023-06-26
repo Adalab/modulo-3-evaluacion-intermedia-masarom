@@ -1,0 +1,21 @@
+.header {
+    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.10), rgba(0, 15, 112, 0.73)), url(../../images/header_background.webp);
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-position: center;
+    height: 35vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    &__title {
+        margin-bottom: 30px;
+        color: white;
+        font-family: Gabriel Weiss Friends, serif;
+        font-weight: 300;
+        font-size: 2rem;
+        @media all and (min-width: 768px){
+        font-size: 4rem;
+       }
+    }
+}

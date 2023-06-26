@@ -1,0 +1,26 @@
+.main {
+    @media all and (min-width:768px) {
+        max-width: 850px;
+        margin: auto;
+    }
+}
+.quote__list {
+  display: grid;
+  @media all and (min-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &--item {
+    font-size: 1.4rem;
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px 7px;
+    border-radius: 5px;
+    background-color: rgba(0, 15, 112, 0.73);
+    color: white;
+    .character {
+      color: orange;
+      font-weight: bold;
+    }
+  }
+}

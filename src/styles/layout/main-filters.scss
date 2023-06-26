@@ -1,0 +1,32 @@
+.form {
+  &__fieldset {
+    width: 100%;
+    padding: 25px 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border: none;
+    border-bottom: 2px solid $main-blue;
+  }
+  &__label {
+    font-size: 1.4rem;
+    color: $main-blue;
+  }
+  &__filters {
+    margin: 15px;
+    padding-bottom: 5px;
+    &--input {
+      color: $main-blue;
+      font-size: 1.4rem;
+      &:focus {
+        border: 2px solid $main-blue;
+      }
+    }
+    &--select {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: $main-blue;
+    }
+  }
+}
