@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import '../styles/App.scss';
 
 function App() {
-  const [quotesList, setquotesList] = useState([]);
-  const [quoteSearch, setquoteSearch] = useState('');
+  const [quotesList, setQuotesList] = useState([]);
+  const [quoteSearch, setQuoteSearch] = useState('');
   const [characterSearch, setCharacterSearch] = useState('');
-  const [newquote, setNewquote] = useState({
+  const [newQuote, setNewQuote] = useState({
     quote: '',
     character: '',
   });
@@ -17,13 +17,13 @@ function App() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setquotesList(data);
+        setQuotesList(data);
       });
   }, []);
 
   // event for filter 1: quote search
-  const handlequoteSearch = (ev) => {
-    setquoteSearch(ev.target.value);
+  const handleQuoteSearch = (ev) => {
+    setQuoteSearch(ev.target.value);
   };
 
   // event for filter 2: character search
@@ -33,16 +33,16 @@ function App() {
   };
 
   // events for BONUS: add new quote
-  const handleNewquote = (ev) => {
-    const clonedNewquote = { ...newquote };
+  const handleNewQuote = (ev) => {
+    const clonedNewquote = { ...newQuote };
     clonedNewquote[ev.target.id] = ev.target.value;
-    setNewquote(clonedNewquote);
+    setNewQuote(clonedNewquote);
   };
 
-  const handleAddNewquote = (ev) => {
+  const handleAddNewQuote = (ev) => {
     ev.preventDefault();
-    setquotesList([...quotesList, newquote]);
-    setNewquote({
+    setQuotesList([...quotesList, newQuote]);
+    setNewQuote({
       quote: '',
       character: '',
     });
@@ -50,20 +50,20 @@ function App() {
 
   // render list
 
-  const renderquotesList = () => {
+  const renderQuotesList = () => {
     return (
       quotesList
         // filter by character
-        .filter((eachquote) => eachquote.character.toLowerCase().includes(characterSearch))
+        .filter((eachQuote) => eachQuote.character.toLowerCase().includes(characterSearch))
         // filter by quote
-        .filter((eachquote) => eachquote.quote.toLowerCase().includes(quoteSearch.toLowerCase()))
+        .filter((eachQuote) => eachQuote.quote.toLowerCase().includes(quoteSearch.toLowerCase()))
         // render quotes
-        .map((eachquote, i) => {
+        .map((eachQuote, i) => {
           return (
             <li className='list__item' key={i}>
-              <span>{eachquote.quote}</span>
+              <span>{eachQuote.quote}</span>
               <span> - </span>
-              <span className='list__item--character'>{eachquote.character}</span>
+              <span className='list__item--character'>{eachQuote.character}</span>
             </li>
           );
         })
@@ -84,7 +84,7 @@ function App() {
             id='quote__filter'
             name='quote__filter'
             value={quoteSearch}
-            onInput={handlequoteSearch}
+            onInput={handleQuoteSearch}
           />
           <label htmlFor='characters'>Filtrar por personaje</label>
           <select name='characters' id='characters' onChange={handleCharacterSearch} value={characterSearch}>
@@ -97,15 +97,15 @@ function App() {
             <option value='rachel'>Rachel</option>
           </select>
         </form>
-        <ul>{renderquotesList()}</ul>
+        <ul>{renderQuotesList()}</ul>
         <section>
           <h2>Añadir nueva frase</h2>
           <form>
             <label htmlFor='quote'>Frase</label>
-            <input type='text' id='quote' value={newquote.quote} onInput={handleNewquote} />
+            <input type='text' id='quote' value={newQuote.quote} onInput={handleNewQuote} />
             <label htmlFor='character'>Personaje</label>
-            <input type='text' id='character' value={newquote.character} onInput={handleNewquote} />
-            <input type='submit' value='Añadir una nueva frase' onClick={handleAddNewquote} />
+            <input type='text' id='character' value={newQuote.character} onInput={handleNewQuote} />
+            <input type='submit' value='Añadir una nueva frase' onClick={handleAddNewQuote} />
           </form>
         </section>
       </main>
