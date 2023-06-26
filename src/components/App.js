@@ -6,6 +6,7 @@ import '../styles/App.scss';
 function App() {
   const [sentencesList, setSentencesList] = useState([]);
   const [sentenceSearch, setSentenceSearch] = useState('');
+  const [characterSearch, setCharacterSearch] = useState('');
 
   const url = 'https://beta.adalab.es/curso-intensivo-fullstack-recursos/apis/quotes-friends-tv-v1/quotes.json';
 
@@ -23,11 +24,21 @@ function App() {
     setSentenceSearch(ev.target.value);
   };
 
+  // event for filter 2: character search
+
+  const handleCharacterSearch = (ev) => {
+    setCharacterSearch(ev.target.value);
+  }
+
   // render list
 
   const renderSentencesList = () => {
     return sentencesList
+    // filter by character
+      .filter((eachSentence) => eachSentence.character.toLowerCase().includes(characterSearch))
+    // filter by sentence
       .filter((eachSentence) => eachSentence.quote.toLowerCase().includes(sentenceSearch.toLowerCase()))
+    // render sentences
       .map((eachSentence, i) => {
         return (
           <li className='list__item' key={i}>
@@ -55,6 +66,16 @@ function App() {
             value={sentenceSearch}
             onInput={handleSentenceSearch}
           />
+          <label htmlFor="characters">Filtrar por personaje</label>
+          <select name="characters" id="characters" onChange={handleCharacterSearch} value={characterSearch}>
+            <option value="">Todos</option>
+            <option value="ross">Ross</option>
+            <option value="monica">Monica</option>
+            <option value="joey">Joey</option>
+            <option value="phoebe">Phoebe</option>
+            <option value="chandler">Chandler</option>
+            <option value="rachel">Rachel</option>
+          </select>
         </form>
         <ul>{renderSentencesList()}</ul>
       </main>
