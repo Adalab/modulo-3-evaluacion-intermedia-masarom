@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import '../styles/App.scss';
 
 function App() {
-  const [sentencesList, setSentencesList] = useState([]);
-  const [sentenceSearch, setSentenceSearch] = useState('');
+  const [quotesList, setquotesList] = useState([]);
+  const [quoteSearch, setquoteSearch] = useState('');
   const [characterSearch, setCharacterSearch] = useState('');
-  const [newSentence, setNewSentence] = useState({
+  const [newquote, setNewquote] = useState({
     quote: '',
     character: '',
   });
@@ -17,13 +17,13 @@ function App() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        setSentencesList(data);
+        setquotesList(data);
       });
   }, []);
 
-  // event for filter 1: sentence search
-  const handleSentenceSearch = (ev) => {
-    setSentenceSearch(ev.target.value);
+  // event for filter 1: quote search
+  const handlequoteSearch = (ev) => {
+    setquoteSearch(ev.target.value);
   };
 
   // event for filter 2: character search
@@ -32,17 +32,17 @@ function App() {
     setCharacterSearch(ev.target.value);
   };
 
-  // events for BONUS: add new sentence
-  const handleNewSentence = (ev) => {
-    const clonedNewSentence = { ...newSentence };
-    clonedNewSentence[ev.target.id] = ev.target.value;
-    setNewSentence(clonedNewSentence);
+  // events for BONUS: add new quote
+  const handleNewquote = (ev) => {
+    const clonedNewquote = { ...newquote };
+    clonedNewquote[ev.target.id] = ev.target.value;
+    setNewquote(clonedNewquote);
   };
 
-  const handleAddNewSentence = (ev) => {
+  const handleAddNewquote = (ev) => {
     ev.preventDefault();
-    setSentencesList([...sentencesList, newSentence]);
-    setNewSentence({
+    setquotesList([...quotesList, newquote]);
+    setNewquote({
       quote: '',
       character: '',
     });
@@ -50,20 +50,20 @@ function App() {
 
   // render list
 
-  const renderSentencesList = () => {
+  const renderquotesList = () => {
     return (
-      sentencesList
+      quotesList
         // filter by character
-        .filter((eachSentence) => eachSentence.character.toLowerCase().includes(characterSearch))
-        // filter by sentence
-        .filter((eachSentence) => eachSentence.quote.toLowerCase().includes(sentenceSearch.toLowerCase()))
-        // render sentences
-        .map((eachSentence, i) => {
+        .filter((eachquote) => eachquote.character.toLowerCase().includes(characterSearch))
+        // filter by quote
+        .filter((eachquote) => eachquote.quote.toLowerCase().includes(quoteSearch.toLowerCase()))
+        // render quotes
+        .map((eachquote, i) => {
           return (
             <li className='list__item' key={i}>
-              <span>{eachSentence.quote}</span>
+              <span>{eachquote.quote}</span>
               <span> - </span>
-              <span className='list__item--character'>{eachSentence.character}</span>
+              <span className='list__item--character'>{eachquote.character}</span>
             </li>
           );
         })
@@ -78,13 +78,13 @@ function App() {
       </header>
       <main>
         <form>
-          <label htmlFor='sentence__filter'>Filtrar por frase</label>
+          <label htmlFor='quote__filter'>Filtrar por frase</label>
           <input
             type='text'
-            id='sentence__filter'
-            name='sentence__filter'
-            value={sentenceSearch}
-            onInput={handleSentenceSearch}
+            id='quote__filter'
+            name='quote__filter'
+            value={quoteSearch}
+            onInput={handlequoteSearch}
           />
           <label htmlFor='characters'>Filtrar por personaje</label>
           <select name='characters' id='characters' onChange={handleCharacterSearch} value={characterSearch}>
@@ -97,15 +97,15 @@ function App() {
             <option value='rachel'>Rachel</option>
           </select>
         </form>
-        <ul>{renderSentencesList()}</ul>
+        <ul>{renderquotesList()}</ul>
         <section>
           <h2>Añadir nueva frase</h2>
           <form>
             <label htmlFor='quote'>Frase</label>
-            <input type='text' id='quote' value={newSentence.quote} onInput={handleNewSentence} />
+            <input type='text' id='quote' value={newquote.quote} onInput={handleNewquote} />
             <label htmlFor='character'>Personaje</label>
-            <input type='text' id='character' value={newSentence.character} onInput={handleNewSentence} />
-            <input type='submit' value='Añadir una nueva frase' onClick={handleAddNewSentence} />
+            <input type='text' id='character' value={newquote.character} onInput={handleNewquote} />
+            <input type='submit' value='Añadir una nueva frase' onClick={handleAddNewquote} />
           </form>
         </section>
       </main>
