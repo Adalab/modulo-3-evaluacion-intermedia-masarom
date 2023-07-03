@@ -18,7 +18,8 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setQuotesList(data);
-      });
+      })
+      .catch((error) => alert(`Ha sucedido un error en la conexión con el servidor. Por favor, recarga la página o espera unos minutos para volver a intentarlo`));
   }, []);
 
   // event for filter 1: quote search
