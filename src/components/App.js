@@ -10,6 +10,9 @@ function App() {
     character: '',
   });
 
+  // To manage form onSubmit error msg 
+  const [error, setError] = useState(false);
+
   const url = 'https://beta.adalab.es/curso-intensivo-fullstack-recursos/apis/quotes-friends-tv-v1/quotes.json';
 
   //fetch
@@ -19,7 +22,11 @@ function App() {
       .then((data) => {
         setQuotesList(data);
       })
-      .catch((error) => alert(`Ha sucedido un error en la conexión con el servidor. Por favor, recarga la página o espera unos minutos para volver a intentarlo`));
+      .catch((error) =>
+        alert(
+          `Ha sucedido un error en la conexión con el servidor. Por favor, recarga la página o espera unos minutos para volver a intentarlo`
+        )
+      );
   }, []);
 
   // event for filter 1: quote search
@@ -40,17 +47,29 @@ function App() {
     setNewQuote(clonedNewquote);
   };
 
-  const handleAddNewQuote = (ev) => {
+  // handleSubmit: I've added the content of the previous function handleAddNewQuote to else
+
+  const handleSubmit = (ev) => {
     ev.preventDefault();
-    setQuotesList([...quotesList, newQuote]);
-    setNewQuote({
-      quote: '',
-      character: '',
-    });
+    //conditional to check if the inputs are filled
+    if (newQuote.quote === '' || newQuote.character === '') {
+      //change error state to show the error msg
+      setError(true);
+      // return nothing so that the form doesnt get send
+      return;
+    } else {
+      // add the quote to the array
+      setQuotesList([...quotesList, newQuote]);
+      setNewQuote({
+        quote: '',
+        character: '',
+      });
+      // set error msg to default
+      setError(false);
+    }
   };
 
   // render list
-
   const renderQuotesList = () => {
     return (
       quotesList
@@ -113,7 +132,7 @@ function App() {
         <ul className='quote__list'>{renderQuotesList()}</ul>
         <section>
           <h2 className='new-quote__title'>Nueva frase</h2>
-          <form className='form__add'>
+          <form className='form__add' onSubmit={handleSubmit}>
             <fieldset className='form__fieldset add-new'>
               <label htmlFor='quote' className='form__label'>
                 Frase
@@ -139,8 +158,8 @@ function App() {
                 type='submit'
                 className='form__add--btn'
                 value='Añadir una nueva frase'
-                onClick={handleAddNewQuote}
               />
+              <div>{error && <span className='error-message'>Rellena todos los campos, por favor</span>}</div>
             </fieldset>
           </form>
         </section>
